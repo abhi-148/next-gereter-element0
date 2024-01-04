@@ -1,0 +1,70 @@
+#include <stdio.h>
+#include<stdlib.h>
+#include<ctype.h>
+
+int top =-1 , size;
+int *stack;
+void Stack_Initilization(int size)
+{
+    stack = (int *)malloc(size*sizeof(int));
+    return;
+}
+void push(int data)
+{
+    if(top!=size-1)
+    {
+        stack[++top] = data;
+        return;
+    }
+}
+int pop()
+{
+    if(top!=-1)
+      {
+        int x =  stack[top];
+       top --;
+       return x;  
+      } 
+   
+}
+int main()
+{
+    printf("Enter the array size : ");
+    scanf("%d" , &size);
+    int element  , next;
+    Stack_Initilization(size);
+    int array[size];
+    for(int i=0;i<size;i++)
+    {
+        scanf("%d" , &array[i]);
+    }
+    
+    push(array[0]);
+    for(int i =1;i<size ; i++)
+    {
+        element = pop();
+        next = array[i];
+        while(element < next)
+        {
+            printf(" \n%d ---> %d", element  , next);
+            if(top==-1)
+                break;
+            else if(top !=-1)
+                element = pop();
+        }
+        if(element > next)
+        {
+            push(element);
+        }
+        push(next);
+    }
+    while(top!=-1)
+    {
+        element = pop();
+        
+        printf("\n %d ---> -1" , element);
+    }
+
+    return 0;
+}
+
